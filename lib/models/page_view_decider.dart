@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sertinews/pages/screens/news_page.dart';
+import 'package:sertinews/pages/screens/news_feed.dart';
 import 'package:sertinews/pages/screens/saved_articles_page.dart';
 import 'package:sertinews/pages/screens/settings_page.dart';
 

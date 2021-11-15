@@ -18,7 +18,7 @@ class SalomonBottomBarData {
 
   //!TITLE OF SALOMON NAV BAR ICON
   final List<String> _navigationTitle = const [
-    "Home",
+    "News Feed",
     "Saved Articles",
     "Settings",
   ];

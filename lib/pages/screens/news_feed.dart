@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sertinews/widgets/page_title.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({Key? key}) : super(key: key);
@@ -10,8 +11,14 @@ class NewsFeed extends StatefulWidget {
 class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF006D77),
+    return Column(
+      children: const <Widget>[
+        PageTitle(
+          pageIcon: Icons.home_outlined ,
+          pageTitle: "News Feed",
+          titleColour: Color(0xFF006D77),
+        )
+      ],
     );
   }
 }
