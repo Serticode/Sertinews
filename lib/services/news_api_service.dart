@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:sertinews/models/news_article_model.dart';
 
