@@ -7,6 +7,6 @@ class NewsSource {
 
   //!FACTORY FUNCTION TO MAP JSON
   factory NewsSource.fromJson(Map<String, dynamic> json) {
-    return NewsSource(id: json["id"], name: json["name"]);
+    return NewsSource(id: json["id"]?? "", name: json["name"]?? "");
   }
 }

@@ -23,13 +23,14 @@ class TheNewsArticle {
   factory TheNewsArticle.fromJson(Map<String, dynamic> json) {
     return TheNewsArticle(
       theSource: NewsSource.fromJson(json["source"]),
-      author: json["author"] as String,
-      title: json["title"] as String,
-      description: json["description"] as String,
-      url: json["url"] as String,
-      urlToImage: json["urlToImage"] as String,
-      publishedAt: json["publishedAt"] as String,
-      content: json["content"] as String,
+      author: json["author"] ??
+          "Unknown Author", //json["author"] != null ? json["author"] as String : "",
+      title: json["title"] ?? "My News",
+      description: json["description"] ?? "", // as String,
+      url: json["url"] ?? "", //as String,
+      urlToImage: json["urlToImage"] ?? "", // as String,
+      publishedAt: json["publishedAt"] ?? "", // as String,
+      content: json["content"] ?? "", // as String,
     );
   }
 }
