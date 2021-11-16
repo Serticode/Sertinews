@@ -1,3 +1,4 @@
+//!WIDGET TO SHOW TITLE OF EACH PAGE
 import 'package:flutter/material.dart';
 
 class PageTitle extends StatelessWidget {

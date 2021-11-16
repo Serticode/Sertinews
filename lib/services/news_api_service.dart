@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:sertinews/models/news_article_model.dart';
 
 class TheApiService {
+//!USED URI'S
   final Uri topStoriesFromUK = Uri.parse(
       "https://newsapi.org/v2/top-headlines?country=gb&category=general&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
   final topStoriesFromUS = Uri.parse(
@@ -13,6 +14,7 @@ class TheApiService {
   final storiesFromIphoneHacks = Uri.parse(
       "http://newsapi.org/v2/everything?domains=iphonehacks.com&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
 
+//! FETCH ARTICLES
   Future<List<TheNewsArticle>> fetchNewsArticles() async {
     Response theURIResponse = await get(storiesFromIphoneHacks);
     if (theURIResponse.statusCode == 200) {

@@ -10,6 +10,7 @@ class TheNewsArticle {
   String publishedAt;
   String content;
 
+//! CONSTRUCTOR TO INITIALIZE CLASS MEMBERS.
   TheNewsArticle(
       {required this.theSource,
       required this.author,
@@ -20,17 +21,17 @@ class TheNewsArticle {
       required this.publishedAt,
       required this.content});
 
+//! CREATE / MAP - INTERFACE / ARTICLE PATTERN FROM JSON.
   factory TheNewsArticle.fromJson(Map<String, dynamic> json) {
     return TheNewsArticle(
       theSource: NewsSource.fromJson(json["source"]),
-      author: json["author"] ??
-          "Unknown Author", //json["author"] != null ? json["author"] as String : "",
+      author: json["author"] ?? "Unknown Author",
       title: json["title"] ?? "My News",
-      description: json["description"] ?? "", // as String,
-      url: json["url"] ?? "", //as String,
-      urlToImage: json["urlToImage"] ?? "", // as String,
-      publishedAt: json["publishedAt"] ?? "", // as String,
-      content: json["content"] ?? "", // as String,
+      description: json["description"] ?? "",
+      url: json["url"] ?? "",
+      urlToImage: json["urlToImage"] ?? "",
+      publishedAt: json["publishedAt"] ?? "",
+      content: json["content"] ?? "",
     );
   }
 }

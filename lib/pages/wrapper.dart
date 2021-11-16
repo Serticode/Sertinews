@@ -1,3 +1,6 @@
+//! THIS FILE HOLDS THE BOTTOM NAV BAR AND CALLS THE SELECT_VIEW CLASS
+//! THAT SHOWS DIFFERENT APP VIEWS, BASED ON THE PAGE NUMBER
+//! "_currentPageNumber", FOR THE PAGE THE USER SELECTS ON THE BOTTOM NAV BAR.
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:sertinews/widgets/salomon_bottom_bar_files.dart';

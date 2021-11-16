@@ -1,3 +1,4 @@
+//! BASIC DATA USED TO BUILD BOTTOM NAV BAR
 import 'package:flutter/material.dart';
 
 class SalomonBottomBarData {
