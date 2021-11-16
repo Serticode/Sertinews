@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sertinews/models/news_article_model.dart';
 import 'package:sertinews/services/news_api_service.dart';
+import 'package:sertinews/widgets/custom_news_container.dart';
 import 'package:sertinews/widgets/page_title.dart';
 
 class NewsFeed extends StatefulWidget {
@@ -19,26 +21,43 @@ class _NewsFeedState extends State<NewsFeed> {
         builder: (BuildContext context,
             AsyncSnapshot<List<TheNewsArticle>> snapshot) {
           if (snapshot.hasData) {
-            debugPrint("The Received data is: ${snapshot.data} ");
+            List<TheNewsArticle>? newsArticles = snapshot.data;
             return Column(
-              children: const <Widget>[
-                PageTitle(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const PageTitle(
                   pageIcon: Icons.home_outlined,
                   pageTitle: "News Feed",
                   titleColour: Color(0xFF006D77),
                 ),
-                Text("DATA RECEIVED")
+                Expanded(
+                    child: ListView.builder(
+                        itemCount: newsArticles!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return CustomNewsContainer(
+                            theNewsArticle: newsArticles[index],
+                            thePageColour: const Color(0xFF006D77),
+                          );
+                        })),
               ],
             );
-          } else {
+          }
+          //!SPIN KIT FOR WHEN DATA HAS NOT BEEN FETCHED.
+          else {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 PageTitle(
                   pageIcon: Icons.home_outlined,
                   pageTitle: "News Feed",
                   titleColour: Color(0xFF006D77),
                 ),
-                CircularProgressIndicator(),
+                Expanded(
+                  child: SpinKitDoubleBounce(
+                    color: Color(0xFF006D77),
+                    size: 100.0,
+                  ),
+                ),
               ],
             );
           }
