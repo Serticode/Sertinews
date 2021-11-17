@@ -17,7 +17,7 @@ class TheApiService {
 
 //! FETCH ARTICLES
   Future<List<TheNewsArticle>> fetchNewsArticles() async {
-    Response theURIResponse = await get(topStoriesFromNG);
+    Response theURIResponse = await get(topStoriesFromUS);
     if (theURIResponse.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(theURIResponse.body);
 
