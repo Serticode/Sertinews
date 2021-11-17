@@ -14,6 +14,8 @@ class NewsFeed extends StatefulWidget {
 
 class _NewsFeedState extends State<NewsFeed> {
   final TheApiService _fetchNewsAPI = TheApiService();
+  final int breakNewsCount = 3;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -25,20 +27,27 @@ class _NewsFeedState extends State<NewsFeed> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const PageTitle(
+                PageTitle(
                   pageIcon: Icons.home_outlined,
-                  pageTitle: "News Feed",
-                  titleColour: Color(0xFF006D77),
+                  pageTitle: "SertiNews",
+                  titleColour: Theme.of(context).brightness == Brightness.light
+                      ? const Color(0xFF006D77)
+                      : const Color(0xFF006D77),
                 ),
-                Expanded(
-                    child: ListView.builder(
-                        itemCount: newsArticles!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CustomNewsContainer(
-                            theNewsArticle: newsArticles[index],
-                            thePageColour: const Color(0xFF006D77),
-                          );
-                        })),
+
+                //!BREAKING NEWS
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.8,
+                  child: PageView.builder(
+                      itemCount: breakNewsCount,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CustomNewsContainer(
+                          theNewsArticle: newsArticles![index],
+                          thePageColour: const Color(0xFF006D77),
+                          pageIndex: index,
+                        );
+                      }),
+                )
               ],
             );
           }

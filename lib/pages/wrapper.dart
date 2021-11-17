@@ -3,6 +3,7 @@
 //! "_currentPageNumber", FOR THE PAGE THE USER SELECTS ON THE BOTTOM NAV BAR.
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:sertinews/theme/theme_data.dart';
 import 'package:sertinews/widgets/salomon_bottom_bar_files.dart';
 import 'package:sertinews/models/page_view_decider.dart';
 
@@ -16,9 +17,18 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   int _currentPageNumber = 0;
   @override
+  void initState() {
+    super.initState();
+    currentThemeData.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: currentThemeData.getCurrentThemeData,
       home: Scaffold(
         body: SafeArea(
           child: SelectView(
@@ -45,7 +55,7 @@ class _WrapperState extends State<Wrapper> {
               activeIcon:
                   Icon(_bottomBarIcons[0], size: _bottomBarSelectedIconSize),
               title: Text(_bottomBarPageTitle[0]),
-              selectedColor: _selectedBackgroundColour[0],
+              selectedColor: BrightThemeColours.newsFeedColour,
             ),
 
             //! SAVED ARTICLES

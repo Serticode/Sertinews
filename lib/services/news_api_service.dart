@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:sertinews/models/news_article_model.dart';
 
@@ -17,7 +18,10 @@ class TheApiService {
 
 //! FETCH ARTICLES
   Future<List<TheNewsArticle>> fetchNewsArticles() async {
-    Response theURIResponse = await get(topStoriesFromUS);
+    Response theURIResponse = await get(topStoriesFromUS).catchError((e) {
+      debugPrint("API FETCH ERROR: $e");
+    });
+
     if (theURIResponse.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(theURIResponse.body);
 
