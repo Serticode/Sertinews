@@ -29,7 +29,9 @@ class MyThemeData with ChangeNotifier {
           color: Colors.black,
           fontSize: 16.0,
         ),
-      ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFF006D77)),
+      ),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFF006D77)),
     );
   }
 
@@ -64,7 +66,7 @@ class BrightThemeColours {
 }
 
 class DarkThemeColours {
-  static Color newsFeedColour = Colors.blue.shade900;
-  static const Color savedArticlesColour = Color(0xFF4D194D);
-  static const Color settingsPageColour = Color(0xFF9E0059);
+  static Color newsFeedColour = Colors.grey.shade200;
+  static Color savedArticlesColour = Colors.grey.shade200;
+  static Color settingsPageColour = Colors.grey.shade200;
 }

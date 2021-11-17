@@ -18,7 +18,10 @@ class TheApiService {
 
 //! FETCH ARTICLES
   Future<List<TheNewsArticle>> fetchNewsArticles() async {
-    Response theURIResponse = await get(topStoriesFromUS).catchError((e) {
+    Response theURIResponse = await get(topStoriesFromUS)
+        .onError((error, stackTrace) =>
+            throw ("RECEIVED ERROR: $error \n\nTRACE: $stackTrace"))
+        .catchError((e) {
       debugPrint("API FETCH ERROR: $e");
     });
 

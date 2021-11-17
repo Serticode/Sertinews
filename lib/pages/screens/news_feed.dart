@@ -14,7 +14,7 @@ class NewsFeed extends StatefulWidget {
 
 class _NewsFeedState extends State<NewsFeed> {
   final TheApiService _fetchNewsAPI = TheApiService();
-  final int breakNewsCount = 3;
+  final int breakNewsCount = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -32,22 +32,30 @@ class _NewsFeedState extends State<NewsFeed> {
                   pageTitle: "SertiNews",
                   titleColour: Theme.of(context).brightness == Brightness.light
                       ? const Color(0xFF006D77)
-                      : const Color(0xFF006D77),
+                      :  Colors.white,
                 ),
+                Expanded(
+                  child: ListView(
+                    children: <Widget>[
+                      //!TOP THREE NEWS ARTICLES
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.8,
+                        child: PageView.builder(
+                            itemCount: breakNewsCount,
+                            itemBuilder: (BuildContext context, int index) {
+                              return CustomNewsContainer(
+                                theNewsArticle: newsArticles![index],
+                                thePageColour: const Color(0xFF006D77),
+                                pageIndex: index,
+                                numberOfPages: breakNewsCount,
+                              );
+                            }),
+                      )
 
-                //!BREAKING NEWS
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.8,
-                  child: PageView.builder(
-                      itemCount: breakNewsCount,
-                      itemBuilder: (BuildContext context, int index) {
-                        return CustomNewsContainer(
-                          theNewsArticle: newsArticles![index],
-                          thePageColour: const Color(0xFF006D77),
-                          pageIndex: index,
-                        );
-                      }),
-                )
+                      //!OTHER NEWS ARTICLES
+                    ],
+                  ),
+                ),
               ],
             );
           }

@@ -34,7 +34,7 @@ class _PageTitleState extends State<PageTitle> {
         children: <Widget>[
           Text(widget.pageTitle,
               style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    fontSize: 24,
+                    fontSize: 28,
                     color: widget.titleColour,
                     fontWeight: FontWeight.w600,
                   )),
@@ -44,10 +44,21 @@ class _PageTitleState extends State<PageTitle> {
                 width: 2.0,
               ),
               activeSwitchBorder: Border.all(
-                color: Colors.white,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : const Color(0xFF006D77),
                 width: 2.0,
               ),
-              showOnOff: true,
+              inactiveToggleBorder: Border.all(
+                color: widget.titleColour,
+                width: 2.0,
+              ),
+              activeToggleBorder: Border.all(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : const Color(0xFF006D77),
+                width: 2.0,
+              ),
               inactiveIcon: const Icon(Icons.nightlight_round_outlined),
               activeIcon: const Icon(
                 Icons.light_mode_outlined,
