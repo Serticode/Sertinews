@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:sertinews/models/news_article_model.dart';
+import 'package:sertinews/pages/screens/show_article_screen.dart';
 
 class CustomTopNewsContainer extends StatelessWidget {
   final TheNewsArticle theNewsArticle;
@@ -21,6 +22,10 @@ class CustomTopNewsContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         debugPrint("Top News Article $pageIndex Tapped ");
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return ShowArticle(theNewsArticle: theNewsArticle);
+        }));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(
