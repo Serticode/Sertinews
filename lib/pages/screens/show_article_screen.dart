@@ -65,19 +65,39 @@ class ShowArticle extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     //!ARTICLE TITLE
-                    IconButton(
-                        alignment: Alignment.centerLeft,
-                        splashColor: Colors.black45,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back_outlined,
-                          size: 28.0,
-                          color: Colors.black87.withOpacity(0.7),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          IconButton(
+                              alignment: Alignment.centerLeft,
+                              splashColor: Colors.black45,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_outlined,
+                                size: 28.0,
+                                color: Colors.black87.withOpacity(0.7),
 
-                          //size: ,
-                        )),
+                                //size: ,
+                              )),
+                          IconButton(
+                              alignment: Alignment.centerLeft,
+                              splashColor: Colors.black45,
+                              onPressed: () {
+                                //!TODO: SAVE ARTICLE.
+                                debugPrint("SAVE ARTICLE BUTTON PRESSED");
+                              },
+                              icon: Icon(
+                                Icons.bookmark_add_outlined,
+                                size: 28.0,
+                                color: Colors.black87.withOpacity(0.7),
+
+                                //size: ,
+                              )),
+                        ]),
+
                     Text(
                       theNewsArticle.title,
                       style: Theme.of(context).textTheme.headline2!.copyWith(

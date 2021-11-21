@@ -31,7 +31,7 @@ class MyThemeData with ChangeNotifier {
         ),
       ),
       colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: Colors.black45),
+          ColorScheme.fromSwatch().copyWith(secondary: Colors.black26),
     );
   }
 

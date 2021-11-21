@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:sertinews/models/news_article_model.dart';
+import 'package:sertinews/pages/screens/show_article_screen.dart';
 
 class CustomOtherNewsContainer extends StatelessWidget {
   final TheNewsArticle theNewsArticle;
@@ -15,7 +16,11 @@ class CustomOtherNewsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        debugPrint("Top News Article $pageIndex Tapped ");
+        debugPrint("Other News Article $pageIndex Tapped ");
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return ShowArticle(theNewsArticle: theNewsArticle);
+        }));
       },
       child: Container(
         height: MediaQuery.of(context).size.height / 2.8,
