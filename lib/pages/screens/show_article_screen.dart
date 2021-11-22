@@ -15,35 +15,38 @@ class ShowArticle extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             //!FIRST CONTAINER
-            Container(
-              height: _screenSize.height / 2.5,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(theNewsArticle.urlToImage),
-                      fit: BoxFit.fitHeight)),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  padding: const EdgeInsets.all(16.0),
-                  height: _screenSize.height / 12,
-                  decoration: const BoxDecoration(boxShadow: [
-                    BoxShadow(
-                      color: Colors.black45,
-                      offset: Offset(
-                        1.0,
-                        1.0,
-                      ),
-                      blurRadius: 50.0,
-                      spreadRadius: 15.0,
-                    ), //BoxShadow
-                  ]),
-                  child: Text("SertiNews",
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontSize: 26.0,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
-                            color: Colors.white,
-                          )),
+            Hero(
+              tag: "newsImage_${theNewsArticle.urlToImage}",
+              child: Container(
+                height: _screenSize.height / 2.5,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(theNewsArticle.urlToImage),
+                        fit: BoxFit.fitHeight)),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    height: _screenSize.height / 12,
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45,
+                        offset: Offset(
+                          1.0,
+                          1.0,
+                        ),
+                        blurRadius: 50.0,
+                        spreadRadius: 15.0,
+                      ), //BoxShadow
+                    ]),
+                    child: Text("SertiNews",
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              fontSize: 26.0,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                              color: Colors.white,
+                            )),
+                  ),
                 ),
               ),
             ),
@@ -107,7 +110,8 @@ class ShowArticle extends StatelessWidget {
                     Text(
                       theNewsArticle.title,
                       style: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: Theme.of(context).brightness == Brightness.light
+                            color:
+                                Theme.of(context).brightness == Brightness.light
                                     ? Colors.black87.withOpacity(0.7)
                                     : Colors.grey.shade300,
                             fontSize: 36.0,
@@ -121,10 +125,9 @@ class ShowArticle extends StatelessWidget {
                     Divider(
                       thickness: 3.0,
                       endIndent: _screenSize.width / 2,
-                      color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Colors.black38.withOpacity(0.7)
-                                    : Colors.grey.shade300,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black38.withOpacity(0.7)
+                          : Colors.grey.shade300,
                     ),
 
                     //!ARTICLE DESCRIPTION
@@ -134,8 +137,8 @@ class ShowArticle extends StatelessWidget {
                     Text(
                       theNewsArticle.description,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: Theme.of(context).brightness ==
-                                        Brightness.light
+                            color:
+                                Theme.of(context).brightness == Brightness.light
                                     ? Colors.black87.withOpacity(0.7)
                                     : Colors.grey.shade300,
                             fontSize: 20.0,
@@ -150,7 +153,8 @@ class ShowArticle extends StatelessWidget {
                     Text(
                       theNewsArticle.content,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: Theme.of(context).brightness == Brightness.light
+                            color:
+                                Theme.of(context).brightness == Brightness.light
                                     ? Colors.black87.withOpacity(0.7)
                                     : Colors.grey.shade300,
                             fontSize: 18.0,
