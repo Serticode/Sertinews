@@ -78,7 +78,10 @@ class ShowArticle extends StatelessWidget {
                               icon: Icon(
                                 Icons.arrow_back_outlined,
                                 size: 28.0,
-                                color: Colors.black87.withOpacity(0.7),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Colors.black87.withOpacity(0.7)
+                                    : Colors.grey.shade300,
 
                                 //size: ,
                               )),
@@ -92,7 +95,10 @@ class ShowArticle extends StatelessWidget {
                               icon: Icon(
                                 Icons.bookmark_add_outlined,
                                 size: 28.0,
-                                color: Colors.black87.withOpacity(0.7),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Colors.black87.withOpacity(0.7)
+                                    : Colors.grey.shade300,
 
                                 //size: ,
                               )),
@@ -101,7 +107,9 @@ class ShowArticle extends StatelessWidget {
                     Text(
                       theNewsArticle.title,
                       style: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: Colors.black87,
+                            color: Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black87.withOpacity(0.7)
+                                    : Colors.grey.shade300,
                             fontSize: 36.0,
                             fontWeight: FontWeight.w700,
                           ),
@@ -113,6 +121,10 @@ class ShowArticle extends StatelessWidget {
                     Divider(
                       thickness: 3.0,
                       endIndent: _screenSize.width / 2,
+                      color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Colors.black38.withOpacity(0.7)
+                                    : Colors.grey.shade300,
                     ),
 
                     //!ARTICLE DESCRIPTION
@@ -122,7 +134,10 @@ class ShowArticle extends StatelessWidget {
                     Text(
                       theNewsArticle.description,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: Colors.black87.withOpacity(0.7),
+                            color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Colors.black87.withOpacity(0.7)
+                                    : Colors.grey.shade300,
                             fontSize: 20.0,
                             fontWeight: FontWeight.w600,
                           ),
@@ -135,7 +150,9 @@ class ShowArticle extends StatelessWidget {
                     Text(
                       theNewsArticle.content,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: Colors.black87.withOpacity(0.7),
+                            color: Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black87.withOpacity(0.7)
+                                    : Colors.grey.shade300,
                             fontSize: 18.0,
                             fontWeight: FontWeight.w600,
                           ),

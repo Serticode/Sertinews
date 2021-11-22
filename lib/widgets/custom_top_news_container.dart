@@ -30,6 +30,7 @@ class CustomTopNewsContainer extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: 10.0,
+          vertical:15.0,
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40.0),

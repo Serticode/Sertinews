@@ -6,12 +6,11 @@ import 'package:sertinews/theme/theme_data.dart';
 class PageTitle extends StatefulWidget {
   final String pageTitle;
   final Color titleColour;
-  const PageTitle(
-      {Key? key,
-      required this.pageTitle,
-      required this.titleColour,
-      })
-      : super(key: key);
+  const PageTitle({
+    Key? key,
+    required this.pageTitle,
+    required this.titleColour,
+  }) : super(key: key);
 
   @override
   State<PageTitle> createState() => _PageTitleState();
@@ -34,42 +33,45 @@ class _PageTitleState extends State<PageTitle> {
                 fontWeight: FontWeight.w600,
               )),
       actions: <Widget>[
-        FlutterSwitch(
-            inactiveSwitchBorder: Border.all(
-              color: widget.titleColour,
-              width: 2.0,
-            ),
-            activeSwitchBorder: Border.all(
-              color: Colors.white,
-              width: 2.0,
-            ),
-            inactiveToggleBorder: Border.all(
-              color: widget.titleColour,
-              width: 2.0,
-            ),
-            activeToggleBorder: Border.all(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : const Color(0xFF006D77),
-              width: 2.0,
-            ),
-            inactiveIcon: const Icon(
-              Icons.nightlight_round_outlined,
-              color: Colors.black,
-            ),
-            activeIcon: const Icon(
-              Icons.light_mode_outlined,
-              color: Colors.black,
-            ),
-            value: switchPressed,
-            activeColor: const Color(0xFF006D77).withOpacity(0.2),
-            inactiveColor: Colors.grey.shade400,
-            onToggle: ((value) {
-              setState(() {
-                switchPressed = value;
-              });
-              currentThemeData.switchTheme();
-            })),
+        Container(
+          margin: const EdgeInsets.only(right: 10.0),
+          child: FlutterSwitch(
+              inactiveSwitchBorder: Border.all(
+                color: widget.titleColour,
+                width: 2.0,
+              ),
+              activeSwitchBorder: Border.all(
+                color: Colors.white,
+                width: 2.0,
+              ),
+              inactiveToggleBorder: Border.all(
+                color: widget.titleColour,
+                width: 2.0,
+              ),
+              activeToggleBorder: Border.all(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : const Color(0xFF006D77),
+                width: 2.0,
+              ),
+              inactiveIcon: const Icon(
+                Icons.nightlight_round_outlined,
+                color: Colors.black,
+              ),
+              activeIcon: const Icon(
+                Icons.light_mode_outlined,
+                color: Colors.black,
+              ),
+              value: switchPressed,
+              activeColor: const Color(0xFF006D77).withOpacity(0.2),
+              inactiveColor: Colors.grey.shade400,
+              onToggle: ((value) {
+                setState(() {
+                  switchPressed = value;
+                });
+                currentThemeData.switchTheme();
+              })),
+        ),
       ],
     );
   }

@@ -7,10 +7,12 @@ import 'package:sertinews/pages/screens/show_article_screen.dart';
 class CustomOtherNewsContainer extends StatelessWidget {
   final TheNewsArticle theNewsArticle;
   final int pageIndex;
+  final String imageUrl;
   const CustomOtherNewsContainer({
     Key? key,
     required this.theNewsArticle,
     required this.pageIndex,
+    required this.imageUrl,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class CustomOtherNewsContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
           color: Colors.white,
           image: DecorationImage(
-            image: NetworkImage(theNewsArticle.urlToImage),
+            image: imageUrl == ""
+                ? const AssetImage("assets/fallback_news_image_resized.png")
+                : NetworkImage(theNewsArticle.urlToImage) as ImageProvider,
             fit: BoxFit.fitHeight,
           ),
         ),

@@ -76,19 +76,24 @@ class _NewsFeedState extends State<NewsFeed> {
                     //!OTHER NEWS ARTICLES
                     Container(
                       margin: const EdgeInsets.symmetric(
-                        vertical: 12.0,
+                        vertical: 30.0,
                         horizontal: 10.0,
                       ),
                       padding: const EdgeInsets.all(12.0),
-                      height: MediaQuery.of(context).size.height / 16,
+                      height: MediaQuery.of(context).size.height / 14,
                       child: Text("Other News",
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.1,
-                                    color: Colors.black87.withOpacity(0.8),
-                                  )),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.1,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Colors.black87.withOpacity(0.7)
+                                    : Colors.grey.shade300,
+                              )),
                     ),
                   ]),
                 ),
@@ -103,6 +108,8 @@ class _NewsFeedState extends State<NewsFeed> {
                     return CustomOtherNewsContainer(
                       theNewsArticle: extractedNewsArticles[otherNewsIndex],
                       pageIndex: otherNewsIndex,
+                      imageUrl:
+                          extractedNewsArticles[otherNewsIndex].urlToImage,
                     );
                   },
                 ),

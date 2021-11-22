@@ -30,8 +30,8 @@ class MyThemeData with ChangeNotifier {
           fontSize: 16.0,
         ),
       ),
-      colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: Colors.black26),
+      colorScheme: ColorScheme.fromSwatch()
+          .copyWith(secondary: Colors.black12.withOpacity(0.4)),
     );
   }
 
