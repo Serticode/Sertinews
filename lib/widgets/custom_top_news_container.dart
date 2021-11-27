@@ -74,20 +74,17 @@ class CustomTopNewsContainer extends StatelessWidget {
                   const SizedBox(height: 8.0),
                   //!ARTICLE AUTHOR  / DATE ROW
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       //!ARTICLE AUTHOR
                       Text(
                         theNewsArticle.author == "Unknown Author"
                             ? theNewsArticle.theSource.name
-                            : theNewsArticle.author.length > 12
-                                ? theNewsArticle.theSource.name
-                                : theNewsArticle.author +
-                                    " for " +
-                                    theNewsArticle.theSource.name,
+                            : theNewsArticle.author,
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               fontSize: 18.0,
                               color: Colors.grey.shade300,
+                              overflow: TextOverflow.ellipsis,
                             ),
                       ),
                       Text(
@@ -104,6 +101,7 @@ class CustomTopNewsContainer extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               fontSize: 18.0,
                               color: Colors.grey.shade300,
+                              overflow: TextOverflow.ellipsis,
                             ),
                       ),
                     ],

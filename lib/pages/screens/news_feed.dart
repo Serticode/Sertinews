@@ -30,7 +30,6 @@ class _NewsFeedState extends State<NewsFeed> {
             List<TheNewsArticle>? extractedNewsArticles = [];
             extractedNewsArticles
                 .addAll(newsArticles!.getRange(6, newsArticles.length));
-
             //!GET THE REST NUMBER OF ARTICLES
             //!FROM POSITION 5 TILL END, AS THE FIRST 5
             //!IS SHOWN IN CUSTOM TOP NEWS CONTAINER
@@ -82,18 +81,16 @@ class _NewsFeedState extends State<NewsFeed> {
                       padding: const EdgeInsets.all(12.0),
                       height: MediaQuery.of(context).size.height / 14,
                       child: Text("Other News",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.1,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Colors.black87.withOpacity(0.7)
-                                    : Colors.grey.shade300,
-                              )),
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.1,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Colors.black87.withOpacity(0.7)
+                                        : Colors.grey.shade300,
+                                  )),
                     ),
                   ]),
                 ),

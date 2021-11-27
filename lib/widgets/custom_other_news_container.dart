@@ -75,11 +75,14 @@ class CustomOtherNewsContainer extends StatelessWidget {
                   Text(
                     theNewsArticle.author == "Unknown Author"
                         ? theNewsArticle.theSource.name
+                        : theNewsArticle.author,
+                    /* theNewsArticle.author == "Unknown Author"
+                        ? theNewsArticle.theSource.name
                         : theNewsArticle.author.length > 8
                             ? theNewsArticle.theSource.name
                             : theNewsArticle.author +
                                 " for " +
-                                theNewsArticle.theSource.name,
+                                theNewsArticle.theSource.name, */
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 14.0,
                           color: Colors.grey.shade300,

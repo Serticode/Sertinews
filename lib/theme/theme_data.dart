@@ -28,6 +28,7 @@ class MyThemeData with ChangeNotifier {
           fontWeight: FontWeight.w500,
           color: Colors.black,
           fontSize: 16.0,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
       colorScheme: ColorScheme.fromSwatch()
@@ -50,6 +51,7 @@ class MyThemeData with ChangeNotifier {
           fontWeight: FontWeight.w500,
           color: Colors.grey.shade700,
           fontSize: 16.0,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );
