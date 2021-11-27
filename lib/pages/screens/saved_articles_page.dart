@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sertinews/widgets/other_pages_title.dart';
 
 class SavedArticles extends StatefulWidget {
   const SavedArticles({Key? key}) : super(key: key);
@@ -15,12 +14,12 @@ class _SavedArticlesState extends State<SavedArticles> {
       body: CustomScrollView(
         slivers: <Widget>[
           //!PAGE TITLE.
-          OtherPagesTitle(
+          /* OtherPagesTitle(
             pageTitle: "Saved Articles",
             titleColour: Theme.of(context).brightness == Brightness.light
                 ? const Color(0xFF4D194D)
                 : Colors.white,
-          ),
+          ), */
 
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
@@ -29,10 +28,10 @@ class _SavedArticlesState extends State<SavedArticles> {
                 padding: const EdgeInsets.all(12.0),
                 height: 250,
                 decoration: BoxDecoration(
-                    color: const Color(0xFF4D194D),
+                    color: const Color(0xFF4D194D).withOpacity(0.95),
                     image: const DecorationImage(
-                      image: AssetImage("assets/settings_page_image.png"),
-                      fit: BoxFit.fitHeight,
+                      image: AssetImage("assets/saved_articles_image2.png"),
+                      fit: BoxFit.contain,
                     ),
                     boxShadow: [
                       BoxShadow(

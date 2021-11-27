@@ -17,9 +17,9 @@ class OtherPagesTitle extends StatefulWidget {
 class _PageTitleState extends State<OtherPagesTitle> {
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      pinned: true,
-      expandedHeight: MediaQuery.of(context).size.height / 20,
+    return AppBar(
+      //pinned: true,
+      //expandedHeight: MediaQuery.of(context).size.height / 20,
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Colors.white
           : Colors.black,
