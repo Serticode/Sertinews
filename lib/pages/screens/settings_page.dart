@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:provider/provider.dart';
+import 'package:sertinews/services/settings_provider.dart';
 import 'package:sertinews/theme/theme_data.dart';
 
 class AppSettings extends StatefulWidget {
@@ -12,7 +14,6 @@ class AppSettings extends StatefulWidget {
 class _AppSettingsState extends State<AppSettings> {
   double switchContainerMargin = 40.0;
   double chipContainerMargin = 30.0;
-  static bool switchPressed = false;
   String _switchValue = "Light Mode";
 
   //!ANIMATION
@@ -39,7 +40,11 @@ class _AppSettingsState extends State<AppSettings> {
 
   @override
   Widget build(BuildContext context) {
-    var _textStyle = Theme.of(context).textTheme.bodyText2!.copyWith(
+    //!SETTINGS PROVIDER.
+    var settingsProvider = Provider.of<SettingsProvider>(context);
+
+    //!TEXT STYLE
+    TextStyle _textStyle = Theme.of(context).textTheme.bodyText2!.copyWith(
           color: Theme.of(context).brightness == Brightness.light
               ? Colors.black87.withOpacity(0.7)
               : Colors.grey.shade300,
@@ -47,6 +52,7 @@ class _AppSettingsState extends State<AppSettings> {
           fontWeight: FontWeight.w600,
         );
 
+    //!SCREEN SIZE
     Size _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -54,7 +60,9 @@ class _AppSettingsState extends State<AppSettings> {
         title: Text("Settings",
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   fontSize: 28,
-                  color: const Color(0xFF9E0059),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? const Color(0xFF9E0059)
+                      : Colors.white,
                   fontWeight: FontWeight.w600,
                 )),
         backgroundColor: Theme.of(context).brightness == Brightness.light
@@ -68,8 +76,7 @@ class _AppSettingsState extends State<AppSettings> {
             padding: const EdgeInsets.all(12.0),
             height: _screenSize.height / 2.8,
             decoration: BoxDecoration(
-                color: const Color(0xFF9E0059)
-                    .withOpacity(0.9), // Colors.grey.shade100,
+                color: const Color(0xFF9E0059).withOpacity(0.9),
                 image: const DecorationImage(
                   image: AssetImage("assets/settings_page_image.png"),
                   fit: BoxFit.contain,
@@ -99,7 +106,7 @@ class _AppSettingsState extends State<AppSettings> {
                     topLeft: Radius.circular(40.0),
                     topRight: Radius.circular(40.0),
                   )),
-              height: _screenSize.height / 2,
+              height: _screenSize.height / 1.9,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -108,10 +115,10 @@ class _AppSettingsState extends State<AppSettings> {
                     height: 10.0,
                   ),
                   Divider(
-                    indent: _screenSize.width / 2.3,
-                    endIndent: _screenSize.width / 2.3,
+                    indent: _screenSize.width / 2.4,
+                    endIndent: _screenSize.width / 2.4,
                     thickness: 3,
-                    color: Colors.grey.shade500.withOpacity(0.9),
+                    color: const Color(0xFF9E0059).withOpacity(0.7),
                   ),
 
                   //!SECTION TITLE
@@ -135,12 +142,12 @@ class _AppSettingsState extends State<AppSettings> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(_switchValue,
+                            Text(settingsProvider.theThemeBrightness,
                                 style: _textStyle.copyWith(
                                   fontSize: 18.0,
                                   color: Theme.of(context).brightness ==
                                           Brightness.light
-                                      ? const Color(0xFF9E0059)
+                                      ? Colors.black87.withOpacity(0.7)
                                       : Colors.white,
                                 )),
                             FlutterSwitch(
@@ -171,16 +178,22 @@ class _AppSettingsState extends State<AppSettings> {
                                   Icons.light_mode_outlined,
                                   color: Colors.black,
                                 ),
-                                value: switchPressed,
+                                value: settingsProvider.theThemeBrightness ==
+                                        "Light Mode"
+                                    ? false
+                                    : true,
                                 activeColor:
                                     const Color(0xFF006D77).withOpacity(0.2),
                                 inactiveColor: Colors.grey.shade400,
                                 onToggle: ((value) {
                                   setState(() {
-                                    switchPressed = value;
                                     value == false
                                         ? _switchValue = "Light Mode"
-                                        : _switchValue = "DarkMode";
+                                        : _switchValue = "Dark Mode";
+
+                                    //!THEME PROVIDER
+                                    settingsProvider.setThemeBrightness(
+                                        themeBrightness: _switchValue);
                                   });
                                   currentThemeData.switchTheme();
                                 })),
@@ -215,7 +228,32 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("usa"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      //!IF SETTINGS PROVIDER NEWS SOURCE HAS A LENGTH OF 1
+                                      //!EMPTY SETTINGS PROVIDER AND ADD NEW ITEM.
+
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "usa");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "usa");
+                                      }
+                                    } else {
+                                      //!VALUE IS FALSE
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "usa");
+                                    }
+                                  },
                                   label: Text("The USA", style: _textStyle),
                                   padding: const EdgeInsets.all(15.0),
                                 ),
@@ -228,7 +266,28 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("uk"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "uk");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "uk");
+                                      }
+                                    } else {
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "uk");
+                                    }
+                                  },
                                   label: Text(
                                     "The UK",
                                     style: _textStyle,
@@ -244,7 +303,28 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("nigeria"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "nigeria");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "nigeria");
+                                      }
+                                    } else {
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "nigeria");
+                                    }
+                                  },
                                   label: Text(
                                     "Nigeria",
                                     style: _textStyle,
@@ -270,7 +350,28 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("wsj"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "wsj");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "wsj");
+                                      }
+                                    } else {
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "wsj");
+                                    }
+                                  },
                                   label: Text("W.S Journal", style: _textStyle),
                                   padding: const EdgeInsets.all(15.0),
                                 ),
@@ -283,9 +384,30 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("forbes"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "forbes");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "forbes");
+                                      }
+                                    } else {
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "forbes");
+                                    }
+                                  },
                                   label: Text(
-                                    "Tech Cabal",
+                                    "Forbes.com",
                                     style: _textStyle,
                                   ),
                                   padding: const EdgeInsets.all(15.0),
@@ -309,8 +431,29 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
-                                  label: Text("iPhoneHacks", style: _textStyle),
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("techCrunch"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "techCrunch");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "techCrunch");
+                                      }
+                                    } else {
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "techCrunch");
+                                    }
+                                  },
+                                  label: Text("Tech Crunch", style: _textStyle),
                                   padding: const EdgeInsets.all(15.0),
                                 ),
                               ),
@@ -322,9 +465,30 @@ class _AppSettingsState extends State<AppSettings> {
                                     EdgeInsets.only(top: chipContainerMargin),
                                 curve: Curves.easeInOutBack,
                                 child: FilterChip(
-                                  onSelected: (value) {},
+                                  selected: (settingsProvider.theNewsSource
+                                          .contains("iphoneHacks"))
+                                      ? true
+                                      : false,
+                                  onSelected: (value) {
+                                    if (value == true) {
+                                      if (settingsProvider
+                                          .theNewsSource.isEmpty) {
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "iphoneHacks");
+                                      } else if (settingsProvider
+                                              .theNewsSource.length ==
+                                          1) {
+                                        settingsProvider.theNewsSource.clear();
+                                        settingsProvider.addNewsSource(
+                                            chosenNewsSource: "iphoneHacks");
+                                      }
+                                    } else {
+                                      settingsProvider.removeNewsSource(
+                                          theNewsSource: "iphoneHacks");
+                                    }
+                                  },
                                   label: Text(
-                                    "Goal.com",
+                                    "iPhoneHacks",
                                     style: _textStyle,
                                   ),
                                   padding: const EdgeInsets.all(15.0),

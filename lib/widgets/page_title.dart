@@ -1,6 +1,8 @@
 //!WIDGET TO SHOW TITLE OF EACH PAGE
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:provider/provider.dart';
+import 'package:sertinews/services/settings_provider.dart';
 import 'package:sertinews/theme/theme_data.dart';
 
 class PageTitle extends StatefulWidget {
@@ -17,9 +19,11 @@ class PageTitle extends StatefulWidget {
 }
 
 class _PageTitleState extends State<PageTitle> {
-  static bool switchPressed = false;
+  String _switchValue = "Light Mode";
+
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return SliverAppBar(
       pinned: true,
       expandedHeight: MediaQuery.of(context).size.height / 20,
@@ -62,12 +66,20 @@ class _PageTitleState extends State<PageTitle> {
                 Icons.light_mode_outlined,
                 color: Colors.black,
               ),
-              value: switchPressed,
+              value: settingsProvider.theThemeBrightness == "Light Mode"
+                  ? false
+                  : true,
               activeColor: const Color(0xFF006D77).withOpacity(0.2),
               inactiveColor: Colors.grey.shade400,
               onToggle: ((value) {
                 setState(() {
-                  switchPressed = value;
+                  value == false
+                      ? _switchValue = "Light Mode"
+                      : _switchValue = "Dark Mode";
+
+                  //!THEME PROVIDER
+                  settingsProvider.setThemeBrightness(
+                      themeBrightness: _switchValue);
                 });
                 currentThemeData.switchTheme();
               })),

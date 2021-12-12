@@ -6,6 +6,8 @@ class SalomonBottomBarData {
   get theSelectedIconSize => _selectedIconSize;
   get theNavigationTitle => _navigationTitle;
   get theSelectionBackgroundColours => _selectionBackgroundColours;
+  get theSelectionBackgroundColoursDark =>
+      _selectionBackgroundColoursDarkMode;
 
   //!SALOMON NAV BAR ICONS
   final List<IconData> _icons = const [
@@ -30,4 +32,7 @@ class SalomonBottomBarData {
     Color(0xFF4D194D),
     Color(0xFF9E0059),
   ];
+
+  //!COLOUR OF SALOMON NAV BAR SELECTION BACKGROUND - DARK MODE
+  final Color _selectionBackgroundColoursDarkMode = Colors.white;
 }

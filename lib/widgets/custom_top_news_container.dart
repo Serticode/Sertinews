@@ -68,13 +68,14 @@ class CustomTopNewsContainer extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 28.0,
                           color: Colors.grey.shade200,
+                          overflow: TextOverflow.ellipsis,
                         ),
                   ),
 
                   const SizedBox(height: 8.0),
                   //!ARTICLE AUTHOR  / DATE ROW
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: <Widget>[
                       //!ARTICLE AUTHOR
                       Text(
@@ -87,6 +88,9 @@ class CustomTopNewsContainer extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                       ),
+                      const SizedBox(
+                        width: 20.0,
+                      ),
                       Text(
                         "|",
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
@@ -94,6 +98,9 @@ class CustomTopNewsContainer extends StatelessWidget {
                               color: Colors.grey.shade300,
                               fontWeight: FontWeight.w900,
                             ),
+                      ),
+                      const SizedBox(
+                        width: 20.0,
                       ),
                       Text(
                         theNewsArticle.publishedAt.replaceRange(

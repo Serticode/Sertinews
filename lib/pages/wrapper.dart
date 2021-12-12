@@ -2,7 +2,9 @@
 //! THAT SHOWS DIFFERENT APP VIEWS, BASED ON THE PAGE NUMBER
 //! "_currentPageNumber", FOR THE PAGE THE USER SELECTS ON THE BOTTOM NAV BAR.
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:sertinews/services/settings_provider.dart';
 import 'package:sertinews/theme/theme_data.dart';
 import 'package:sertinews/widgets/salomon_bottom_bar_files.dart';
 import 'package:sertinews/models/page_view_decider.dart';
@@ -26,9 +28,12 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
+    var _settingsProvider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: currentThemeData.getCurrentThemeData,
+      theme: _settingsProvider.theThemeBrightness == "Light Mode"
+          ? MyThemeData.lightTheme
+          : MyThemeData.darkTheme,
       home: Scaffold(
         body: SafeArea(
           child: SelectView(
@@ -55,21 +60,30 @@ class _WrapperState extends State<Wrapper> {
               activeIcon:
                   Icon(_bottomBarIcons[0], size: _bottomBarSelectedIconSize),
               title: Text(_bottomBarPageTitle[0]),
-              selectedColor: BrightThemeColours.newsFeedColour,
+              selectedColor:
+                  (_settingsProvider.theThemeBrightness == "Light Mode")
+                      ? BrightThemeColours.newsFeedColour
+                      : _selectedBackgroundColourDark,
             ),
 
             //! SAVED ARTICLES
             SalomonBottomBarItem(
               icon: Icon(_bottomBarIcons[1]),
               title: Text(_bottomBarPageTitle[1]),
-              selectedColor: _selectedBackgroundColour[1],
+              selectedColor:
+                  (_settingsProvider.theThemeBrightness == "Light Mode")
+                      ? _selectedBackgroundColour[1]
+                      : _selectedBackgroundColourDark,
             ),
 
             //! SETTING
             SalomonBottomBarItem(
               icon: Icon(_bottomBarIcons[2]),
               title: Text(_bottomBarPageTitle[2]),
-              selectedColor: _selectedBackgroundColour[2],
+              selectedColor:
+                  (_settingsProvider.theThemeBrightness == "Light Mode")
+                      ? _selectedBackgroundColour[2]
+                      : _selectedBackgroundColourDark,
             ),
           ],
         ),
@@ -83,4 +97,6 @@ class _WrapperState extends State<Wrapper> {
   get _bottomBarSelectedIconSize => SalomonBottomBarData().theSelectedIconSize;
   get _selectedBackgroundColour =>
       SalomonBottomBarData().theSelectionBackgroundColours;
+  get _selectedBackgroundColourDark =>
+      SalomonBottomBarData().theSelectionBackgroundColoursDark;
 }

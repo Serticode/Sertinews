@@ -1,12 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 MyThemeData currentThemeData = MyThemeData();
 
 class MyThemeData with ChangeNotifier {
   static bool _isDarkTheme = false;
-  get getCurrentThemeData => _isDarkTheme ? darkTheme : lightTheme;
+  get getCurrentThemeData =>  _isDarkTheme ? darkTheme : lightTheme;
 
   void switchTheme() {
     _isDarkTheme = !_isDarkTheme;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sertinews/services/settings_provider.dart';
 import 'pages/wrapper.dart';
 
 void main() {
@@ -10,6 +12,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Wrapper();
+    return ChangeNotifierProvider(
+        create: (BuildContext context) => SettingsProvider(),
+        child: const Wrapper());
   }
 }

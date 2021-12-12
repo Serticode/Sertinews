@@ -18,8 +18,6 @@ class _PageTitleState extends State<OtherPagesTitle> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      //pinned: true,
-      //expandedHeight: MediaQuery.of(context).size.height / 20,
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Colors.white
           : Colors.black,

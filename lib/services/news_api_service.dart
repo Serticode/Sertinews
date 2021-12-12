@@ -15,6 +15,12 @@ class TheApiService {
       "https://newsapi.org/v2/top-headlines?country=ng&category=general&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
   final storiesFromIphoneHacks = Uri.parse(
       "http://newsapi.org/v2/everything?domains=iphonehacks.com&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
+  final topStoriesFromWallStreetJournal = Uri.parse(
+      "http://newsapi.org/v2/everything?domains=wsj.com&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
+  final topStoriesFromForbes = Uri.parse(
+      "http://newsapi.org/v2/everything?domains=forbes.com&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
+  final topStoriesFromTechCrunch = Uri.parse(
+      "http://newsapi.org/v2/everything?domains=techcrunch.com&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
 
 //! FETCH ARTICLES
   Future<List<TheNewsArticle>> fetchNewsArticles() async {
