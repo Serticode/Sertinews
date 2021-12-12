@@ -46,6 +46,7 @@ class SettingsProvider with ChangeNotifier {
     }
   }
 
+  //!SHARED PREFERENCES
   savePreferences() async {
     SharedPreferences _userPreference = await SharedPreferences.getInstance();
     _userPreference.setString("themeBrightness", _themeBrightness);

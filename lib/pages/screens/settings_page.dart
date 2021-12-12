@@ -252,6 +252,9 @@ class _AppSettingsState extends State<AppSettings> {
                                       //!VALUE IS FALSE
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "usa");
+                                      //!ADD EMPTY STRING TO MAKE SURE SETTINGS PROVIDER IS NOT NULL
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text("The USA", style: _textStyle),
@@ -286,6 +289,8 @@ class _AppSettingsState extends State<AppSettings> {
                                     } else {
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "uk");
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text(
@@ -323,6 +328,8 @@ class _AppSettingsState extends State<AppSettings> {
                                     } else {
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "nigeria");
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text(
@@ -370,6 +377,8 @@ class _AppSettingsState extends State<AppSettings> {
                                     } else {
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "wsj");
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text("W.S Journal", style: _textStyle),
@@ -404,6 +413,8 @@ class _AppSettingsState extends State<AppSettings> {
                                     } else {
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "forbes");
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text(
@@ -451,6 +462,8 @@ class _AppSettingsState extends State<AppSettings> {
                                     } else {
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "techCrunch");
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text("Tech Crunch", style: _textStyle),
@@ -485,6 +498,8 @@ class _AppSettingsState extends State<AppSettings> {
                                     } else {
                                       settingsProvider.removeNewsSource(
                                           theNewsSource: "iphoneHacks");
+                                      settingsProvider.addNewsSource(
+                                          chosenNewsSource: "");
                                     }
                                   },
                                   label: Text(

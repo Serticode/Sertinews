@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 import 'package:sertinews/models/news_article_model.dart';
 import 'package:sertinews/services/news_api_service.dart';
+import 'package:sertinews/services/settings_provider.dart';
 import 'package:sertinews/widgets/custom_other_news_container.dart';
 import 'package:sertinews/widgets/custom_top_news_container.dart';
 import 'package:sertinews/widgets/page_title.dart';
@@ -17,11 +19,62 @@ class NewsFeed extends StatefulWidget {
 class _NewsFeedState extends State<NewsFeed> {
   final TheApiService _fetchNewsAPI = TheApiService();
   final int breakNewsCount = 5;
+  late String userSelectedNewsSource;
+
+  @override
+  void didChangeDependencies() {
+    SettingsProvider theSettingsProvider =
+        Provider.of<SettingsProvider>(context);
+    switch (theSettingsProvider.theNewsSource.first) {
+      case "usa":
+        setState(() {
+            userSelectedNewsSource = "usa";
+          });
+        break;
+      case "uk":
+        setState(() {
+            userSelectedNewsSource = "uk";
+          });
+        break;
+        case "nigeria":
+        setState(() {
+            userSelectedNewsSource = "nigeria";
+          });
+        break;
+        case "wsj":
+        setState(() {
+            userSelectedNewsSource = "wsj";
+          });
+        break;
+        case "forbes":
+        setState(() {
+            userSelectedNewsSource = "forbes";
+          });
+        break;
+        case "techCrunch":
+        setState(() {
+            userSelectedNewsSource = "techCrunch";
+          });
+        break;
+        case "iphoneHacks":
+        setState(() {
+            userSelectedNewsSource = "iphoneHacks";
+          });
+        break;
+      default:
+      setState(() {
+            userSelectedNewsSource = "usa";
+          });
+    }
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _fetchNewsAPI.fetchNewsArticles(),
+        future: _fetchNewsAPI.fetchNewsArticles(
+            userSelectedSource: userSelectedNewsSource),
         builder: (BuildContext context,
             AsyncSnapshot<List<TheNewsArticle>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

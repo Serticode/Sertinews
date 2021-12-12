@@ -4,8 +4,9 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:sertinews/models/news_article_model.dart';
+import 'package:sertinews/services/settings_provider.dart';
 
-class TheApiService {
+class TheApiService extends SettingsProvider {
 //!USED URI'S
   final Uri topStoriesFromUK = Uri.parse(
       "https://newsapi.org/v2/top-headlines?country=gb&category=general&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
@@ -23,8 +24,25 @@ class TheApiService {
       "http://newsapi.org/v2/everything?domains=techcrunch.com&apiKey=5a5b6a8c28fe47eeb02a821489e29aa2");
 
 //! FETCH ARTICLES
-  Future<List<TheNewsArticle>> fetchNewsArticles() async {
-    Response theURIResponse = await get(topStoriesFromUS)
+  Future<List<TheNewsArticle>> fetchNewsArticles(
+      {required String userSelectedSource}) async {
+    Response theURIResponse = await get(
+      (userSelectedSource == "usa")
+          ? topStoriesFromUS
+          : (userSelectedSource == "uk")
+              ? topStoriesFromUK
+              : (userSelectedSource == "nigeria")
+                  ? topStoriesFromNG
+                  : (userSelectedSource == "wsj")
+                      ? topStoriesFromWallStreetJournal
+                      : (userSelectedSource == "forbes")
+                          ? topStoriesFromForbes
+                          : (userSelectedSource == "techCrunch")
+                              ? topStoriesFromTechCrunch
+                              : (userSelectedSource == "iphoneHacks")
+                                  ? storiesFromIphoneHacks
+                                  : topStoriesFromUS,
+    )
         .onError((error, stackTrace) =>
             throw ("RECEIVED ERROR: $error \n\nTRACE: $stackTrace"))
         .catchError((e) {
