@@ -21,7 +21,6 @@ class CustomTopNewsContainer extends StatelessWidget {
     //!MAIN CONTAINER.
     return GestureDetector(
       onTap: () {
-        debugPrint("Top News Article $pageIndex Tapped ");
         Navigator.of(context).push(
           PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 500),

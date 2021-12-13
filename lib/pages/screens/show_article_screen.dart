@@ -134,8 +134,6 @@ class _ShowArticleState extends State<ShowArticle>
                                         Brightness.light
                                     ? Colors.black87.withOpacity(0.7)
                                     : Colors.grey.shade300,
-
-                                //size: ,
                               )),
                           AnimatedBuilder(
                               animation: _theAnimationController,
@@ -159,8 +157,7 @@ class _ShowArticleState extends State<ShowArticle>
                                       icon: Icon(
                                         Icons.bookmark_add_outlined,
                                         size: 28.0,
-                                        color: _iconColourAnimation
-                                            .value,
+                                        color: _iconColourAnimation.value,
                                       )),
                                 );
                               }),
