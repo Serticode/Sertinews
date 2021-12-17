@@ -1,4 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sertinews/models/news_article_model.dart';
+import 'package:sertinews/pages/screens/show_article_screen.dart';
+import 'package:sertinews/services/settings_provider.dart';
 
 class SavedArticles extends StatefulWidget {
   const SavedArticles({Key? key}) : super(key: key);
@@ -10,6 +15,7 @@ class SavedArticles extends StatefulWidget {
 class _SavedArticlesState extends State<SavedArticles> {
   String sampleText = "TEST EVERYTHING";
   double articleContainerMargin = 150.0;
+  late List<TheNewsArticle> _theSavedArticles = [];
 
   //!ANIMATE CONTAINER
   animateArticleContainer() {
@@ -27,7 +33,19 @@ class _SavedArticlesState extends State<SavedArticles> {
   }
 
   @override
+  void didChangeDependencies() {
+    SettingsProvider _settingsProvider = Provider.of<SettingsProvider>(context);
+    super.didChangeDependencies();
+
+    setState(() {
+      _theSavedArticles = _settingsProvider.fetchSavedArticlesList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    SettingsProvider _settingsProvider = Provider.of<SettingsProvider>(context);
+
     Size _screenSize = MediaQuery.of(context).size;
     final _textStyle = Theme.of(context).textTheme.bodyText2!.copyWith(
           color: Theme.of(context).brightness == Brightness.light
@@ -122,55 +140,87 @@ class _SavedArticlesState extends State<SavedArticles> {
                       curve: Curves.easeInOutBack,
                       margin: EdgeInsets.only(top: articleContainerMargin),
                       child: ListView.separated(
-                          separatorBuilder: (_, __) {
+                          separatorBuilder: (_, int index) {
                             return Divider(
                               color: (Theme.of(context).brightness ==
-                                            Brightness.light)
-                                        ? const Color(0xFF4D194D).withOpacity(0.5)
-                                        : Colors.white.withOpacity(0.5),
+                                      Brightness.light)
+                                  ? const Color(0xFF4D194D).withOpacity(0.5)
+                                  : Colors.white.withOpacity(0.5),
                               thickness: 1.8,
                               endIndent: _screenSize.width / 2,
                             );
                           },
-                          itemCount: 5,
-                          itemBuilder: (_, __) {
-                            return ListTile(
-                              contentPadding: const EdgeInsets.all(12.0),
-                              //!LEADING
-                              leading: CircleAvatar(
-                                radius: 30.0,
-                                backgroundColor:
-                                    (Theme.of(context).brightness ==
-                                            Brightness.light)
-                                        ? const Color(0xFF4D194D)
-                                        : Colors.white,
-                                child: const CircleAvatar(
-                                  radius: 25.0,
-                                  backgroundImage: AssetImage(
-                                      "assets/saved_articles_image1.png"),
+                          itemCount: _theSavedArticles.length,
+                          itemBuilder: (_, int index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  PageRouteBuilder(
+                                      transitionDuration:
+                                          const Duration(milliseconds: 500),
+                                      pageBuilder: (_, __, ___) => ShowArticle(
+                                          theNewsArticle:
+                                              _theSavedArticles[index], fromPageTitle: "Saved Articles",)),
+                                );
+                              },
+                              child: Hero(
+                                tag: _theSavedArticles[index].urlToImage == ""
+                                    ? "newsImage_${_theSavedArticles[index].title}"
+                                    : "newsImage_${_theSavedArticles[index].urlToImage}",
+                                child: Card(
+                                  elevation: 10.0,
+                                  shadowColor: Colors.black38,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(40.0)),
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(12.0),
+                                    //!LEADING
+                                    leading: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundColor:
+                                          (Theme.of(context).brightness ==
+                                                  Brightness.light)
+                                              ? const Color(0xFF4D194D)
+                                              : Colors.white,
+                                      child: CircleAvatar(
+                                        radius: 25.0,
+                                        backgroundImage:
+                                            CachedNetworkImageProvider(
+                                          _theSavedArticles[index].urlToImage,
+                                        ),
+                                      ),
+                                    ),
+
+                                    //!TITLE
+                                    title: Text(
+                                      _theSavedArticles[index].title,
+                                      style: _textStyle,
+                                    ),
+
+                                    //!SUBTITLE
+                                    subtitle: Text(
+                                        _theSavedArticles[index].description),
+
+                                    //!TRAILING
+                                    trailing: IconButton(
+                                        onPressed: () {
+                                          _settingsProvider.removeSavedArticle(
+                                              theArticleToBeRemoved:
+                                                  _theSavedArticles[index]);
+                                        },
+                                        icon: Icon(
+                                          Icons.delete_outlined,
+                                          color:
+                                              (Theme.of(context).brightness ==
+                                                      Brightness.light)
+                                                  ? const Color(0xFF4D194D)
+                                                  : Colors.white,
+                                          size: 30.0,
+                                        )),
+                                  ),
                                 ),
                               ),
-
-                              //!TITLE
-                              title: Text(
-                                sampleText,
-                                style: _textStyle,
-                              ),
-
-                              //!SUBTITLE
-                              subtitle: Text(sampleText),
-
-                              //!TRAILING
-                              trailing: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.delete_outlined,
-                                    color: (Theme.of(context).brightness ==
-                                            Brightness.light)
-                                        ? const Color(0xFF4D194D)
-                                        : Colors.white,
-                                    size: 30.0,
-                                  )),
                             );
                           }),
                     ),

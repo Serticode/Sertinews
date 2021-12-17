@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sertinews/models/news_article_model.dart';
 import 'package:sertinews/pages/screens/show_article_screen.dart';
@@ -16,16 +17,17 @@ class CustomOtherNewsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        debugPrint("Other News Article $pageIndex Tapped ");
         Navigator.of(context).push(
           PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 500),
               pageBuilder: (_, __, ___) =>
-                  ShowArticle(theNewsArticle: theNewsArticle)),
+                  ShowArticle(theNewsArticle: theNewsArticle, fromPageTitle: 'News Feed',)),
         );
       },
       child: Hero(
-        tag: "newsImage_${theNewsArticle.urlToImage}",
+        tag: theNewsArticle.urlToImage == ""
+            ? "newsImage_${theNewsArticle.title}"
+            : "newsImage_${theNewsArticle.urlToImage}",
         child: Container(
           height: MediaQuery.of(context).size.height / 2.8,
           margin: const EdgeInsets.symmetric(
@@ -37,7 +39,8 @@ class CustomOtherNewsContainer extends StatelessWidget {
             image: DecorationImage(
               image: imageUrl == ""
                   ? const AssetImage("assets/fallback_news_image_resized.png")
-                  : NetworkImage(theNewsArticle.urlToImage) as ImageProvider,
+                  : CachedNetworkImageProvider(theNewsArticle.urlToImage)
+                      as ImageProvider, //NetworkImage(theNewsArticle.urlToImage) as ImageProvider,
               fit: BoxFit.fitHeight,
             ),
           ),

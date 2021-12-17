@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:sertinews/models/news_article_model.dart';
@@ -25,11 +26,13 @@ class CustomTopNewsContainer extends StatelessWidget {
           PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 500),
               pageBuilder: (_, __, ___) =>
-                  ShowArticle(theNewsArticle: theNewsArticle)),
+                  ShowArticle(theNewsArticle: theNewsArticle , fromPageTitle: 'News Feed')),
         );
       },
       child: Hero(
-        tag: "newsImage_${theNewsArticle.urlToImage}",
+        tag: theNewsArticle.urlToImage == ""
+            ? "newsImage_${theNewsArticle.title}"
+            : "newsImage_${theNewsArticle.urlToImage}",
         child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 10.0,
@@ -39,7 +42,10 @@ class CustomTopNewsContainer extends StatelessWidget {
             borderRadius: BorderRadius.circular(40.0),
             color: Colors.white,
             image: DecorationImage(
-              image: NetworkImage(theNewsArticle.urlToImage),
+              image: theNewsArticle.urlToImage == ""
+                  ? const AssetImage("assets/fallback_news_image_resized.png")
+                  : CachedNetworkImageProvider(theNewsArticle.urlToImage)
+                      as ImageProvider, //NetworkImage(theNewsArticle.urlToImage),
               fit: BoxFit.fitHeight,
             ),
           ),

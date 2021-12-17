@@ -24,7 +24,9 @@ class TheNewsArticle {
 //! CREATE / MAP - INTERFACE / ARTICLE PATTERN FROM JSON.
   factory TheNewsArticle.fromJson(Map<String, dynamic> json) {
     return TheNewsArticle(
-      theSource: NewsSource.fromJson(json["source"]),
+      theSource: json["source"] == null
+          ? NewsSource.fromJson({})
+          : NewsSource.fromJson(json["source"]),
       author: json["author"] ?? "Unknown Author",
       title: json["title"] ?? "My News",
       description: json["description"] ?? "",
