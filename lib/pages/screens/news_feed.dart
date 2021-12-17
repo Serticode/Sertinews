@@ -98,6 +98,10 @@ class _NewsFeedState extends State<NewsFeed> {
                   delegate: SliverChildListDelegate([
                     //!TOP FIVE NEWS ARTICLES
                     Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 15.0,
+                      ),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
@@ -127,8 +131,8 @@ class _NewsFeedState extends State<NewsFeed> {
                     //!OTHER NEWS ARTICLES
                     Container(
                       margin: const EdgeInsets.symmetric(
-                        vertical: 30.0,
-                        horizontal: 10.0,
+                        vertical: 15.0,
+                        horizontal: 15.0,
                       ),
                       padding: const EdgeInsets.all(12.0),
                       height: MediaQuery.of(context).size.height / 14,

@@ -21,9 +21,7 @@ class _WrapperState extends State<Wrapper> {
   @override
   void initState() {
     super.initState();
-    currentThemeData.addListener(() {
-      setState(() {});
-    });
+    currentThemeData.addListener(() {});
   }
 
   @override
